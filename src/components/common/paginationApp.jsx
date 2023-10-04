@@ -1,12 +1,12 @@
 import React from "react";
 import Pagination from "react-bootstrap/Pagination";
 import _ from "lodash";
-import PropTypes from "prop-types"; // ES6
+import PropTypes from "prop-types";
 
-function PaginationApp({ itemsCount, pageSize, activePage, onPageChange }) {
+const PaginationApp = ({ itemsCount, pageSize, activePage, onPageChange }) => {
   const pageNumbers = _.range(1, Math.ceil(itemsCount / pageSize) + 1);
 
-  return (
+  return pageNumbers.length > 1 ? (
     <Pagination>
       {pageNumbers.map((pageNumber) => (
         <Pagination.Item
@@ -18,8 +18,8 @@ function PaginationApp({ itemsCount, pageSize, activePage, onPageChange }) {
         </Pagination.Item>
       ))}
     </Pagination>
-  );
-}
+  ) : null;
+};
 
 PaginationApp.propTypes = {
   itemsCount: PropTypes.number.isRequired,

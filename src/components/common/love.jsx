@@ -3,16 +3,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import Button from "react-bootstrap/Button";
 
-function Love({ id, isLoved, onLoveClick }) {
+const Love = ({ id, isLoved, onLove }) => {
   return (
     <Button
-      onClick={() => onLoveClick(id)}
+      onClick={() => onLove(id, isLoved)}
       variant={isLoved ? "danger" : "secondary"}
       className="love-icon"
     >
       <FontAwesomeIcon icon={faHeart} />
     </Button>
   );
-}
+};
 
 export default Love;

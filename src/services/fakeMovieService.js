@@ -1,4 +1,5 @@
-import * as genresAPI from "./fakeGenreService";
+import { getGenres } from "./genreService";
+import { v4 as uuidv4 } from "uuid";
 
 const movies = [
   {
@@ -8,7 +9,7 @@ const movies = [
     numberInStock: 6,
     dailyRentalRate: 2.5,
     publishDate: "2018-01-03T19:04:28.809Z",
-    isLoved: false,
+    isLoved: true,
   },
   {
     _id: "5b21ca3eeb7f6fbccd471816",
@@ -40,7 +41,7 @@ const movies = [
     genre: { _id: "5b21ca3eeb7f6fbccd471814", name: "Comedy" },
     numberInStock: 7,
     dailyRentalRate: 3.5,
-    isLoved: false,
+    isLoved: true,
   },
   {
     _id: "5b21ca3eeb7f6fbccd47181b",
@@ -73,13 +74,6 @@ const movies = [
     numberInStock: 7,
     dailyRentalRate: 3.5,
     isLoved: false,
-  }, {
-    _id: "test",
-    title: "test",
-    genre: { _id: "5b21ca3eeb7f6fbccd471814", name: "Comedy" },
-    numberInStock: 7,
-    dailyRentalRate: 3.5,
-    isLoved: false,
   },
 ];
 
@@ -88,18 +82,18 @@ export function getMovies() {
 }
 
 export function getMovie(id) {
-  return movies.find(m => m._id === id);
+  return movies.find((m) => m._id === id);
 }
 
 export function saveMovie(movie) {
-  let movieInDb = movies.find(m => m._id === movie._id) || {};
-  movieInDb.name = movie.name;
-  movieInDb.genre = genresAPI.genres.find(g => g._id === movie.genreId);
+  let movieInDb = movies.find((m) => m._id === movie._id) || {};
+  movieInDb.title = movie.title;
+  movieInDb.genre = getGenres().find((g) => g._id === movie.genreId);
   movieInDb.numberInStock = movie.numberInStock;
   movieInDb.dailyRentalRate = movie.dailyRentalRate;
 
   if (!movieInDb._id) {
-    movieInDb._id = Date.now();
+    movieInDb._id = uuidv4();
     movies.push(movieInDb);
   }
 
@@ -107,13 +101,13 @@ export function saveMovie(movie) {
 }
 
 export function deleteMovie(id) {
-  let movieInDb = movies.find(m => m._id === id);
+  let movieInDb = movies.find((m) => m._id === id);
   movies.splice(movies.indexOf(movieInDb), 1);
   return movieInDb;
 }
 
 export function handleLoveClick(id) {
-  let movieInDb = movies.find(m => m._id === id);
+  let movieInDb = movies.find((m) => m._id === id);
   movieInDb.isLoved = !movieInDb.isLoved;
   return movieInDb;
 }
