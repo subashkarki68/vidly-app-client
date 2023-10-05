@@ -1,5 +1,6 @@
 {
   "name": "vidly-app",
+  "homepage": "http://store.ruchirajkarki.com.np",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
